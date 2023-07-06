@@ -1,0 +1,80 @@
+<div class="dialog-overlay"></div>
+
+<div class="dialog-container">
+
+    <form [formGroup]="formGroup" class="mat-dialog-container">
+
+        <h1>Create New Course</h1>
+
+        <button class="close-button" (click)="closeDialog()">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <mat-form-field>
+            <input matInput
+                type="title" formControlName="title" placeholder="title">
+        </mat-form-field>
+
+        <ng-container *ngIf="formGroup.controls['title'].errors && formGroup.controls['title'].touched">
+            <ng-container *ngIf="formGroup.controls['title'].errors['required']">
+                <div>Title is required!</div>
+            </ng-container>
+            <ng-container *ngIf="formGroup.controls['title'].errors['minlength'] && !formGroup.controls['title'].errors['required']">
+                <div>Title needs to be at least 2 characters long!</div>
+            </ng-container>
+        </ng-container>
+
+        <mat-form-field>
+            <input matInput
+                type="description" formControlName="description" placeholder="description">
+        </mat-form-field>
+
+        <ng-container *ngIf="formGroup.controls['description'].errors && formGroup.controls['description'].touched">
+            <ng-container *ngIf="formGroup.controls['description'].errors['required']">
+                <div>Description is required!</div>
+            </ng-container>
+            <ng-container *ngIf="formGroup.controls['description'].errors['minlength'] && !formGroup.controls['description'].errors['required']">
+                <div>Description needs to be at least 2 characters long!</div>
+            </ng-container>
+        </ng-container>
+
+        <mat-form-field>
+            <input matInput [matDatepicker]="startDatePicker" type="text" formControlName="startDate"
+                placeholder="Start Date">
+            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #startDatePicker></mat-datepicker>
+            <mat-error>Start date is required.</mat-error>
+        </mat-form-field>
+
+        <ng-container *ngIf="formGroup.controls['startDate'].errors && formGroup.controls['startDate'].touched">
+            <ng-container *ngIf="formGroup.controls['startDate'].errors['required']">
+                <div>Start date is required!</div>
+            </ng-container>
+        </ng-container>
+
+
+        <mat-form-field>
+            <input matInput [matDatepicker]="endDatePicker" type="text" formControlName="endDate"
+                placeholder="End Date">
+            <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #endDatePicker></mat-datepicker>
+            <mat-error>End date is required.</mat-error>
+        </mat-form-field>
+
+        <div *ngIf="statusMessage">
+            {{statusMessage}}
+        </div>
+
+        <mat-form-field class="custom-field">
+            <mat-label>Select Users</mat-label>
+            <mat-select [multiple]="true" formControlName="userIds" placeholder="Select Courses">
+                <mat-option *ngFor="let user of users" [value]="user.id" [disabled]="user.disabled">
+                    {{user.firstName}} {{user.lastName}} / E-mail: {{user.email}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <button mat-button (click)="onSubmit()">Submit</button>
+
+    </form>
+</div>

@@ -1,0 +1,206 @@
+<div class="dialog-overlay"></div>
+
+<div class="dialog-container">
+
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="mat-dialog-container">
+
+        <button class="close-button" (click)="closeDialog()">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <mat-form-field>
+            <input matInput
+                [ngClass]="formGroup.controls['email'].errors && formGroup.controls['email'].touched ? 'problem' : 'noProblem'"
+                type="text" formControlName="email" placeholder="Email*">
+        </mat-form-field>
+
+        <ng-container *ngIf="formGroup.controls['email'].errors && formGroup.controls['email'].touched">
+            <ng-container *ngIf="formGroup.controls['email'].errors['required']">
+                <div>This field is required!</div>
+            </ng-container>
+            <ng-container *ngIf="formGroup.controls['email'].errors['pattern']">
+                <div>Wrong email address format!</div>
+            </ng-container>
+        </ng-container>
+
+        <mat-form-field>
+            <input matInput [type]="hide ? 'password' : 'text'" type="password" formControlName="password"
+                placeholder="Password*">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <ng-container *ngIf="formGroup.controls['password'].errors && formGroup.controls['password'].touched">
+            <ng-container *ngIf="formGroup.controls['password'].errors['required']">
+                <div>Password is required!</div>
+            </ng-container>
+            <ng-container *ngIf="formGroup.controls['password'].errors['pattern']">
+                <div>Password must have small letter, large letter and a number!</div>
+            </ng-container>
+        </ng-container>
+
+        <mat-form-field>
+            <input matInput [type]="hideRP ? 'password' : 'text'"
+                [ngClass]="formGroup.controls['confirmPassword'].errors && formGroup.controls['confirmPassword'].touched || (submit && formGroup.hasError('notmatched'))? 'problem' : 'noProblem'"
+                type="password" formControlName="confirmPassword" placeholder="Confirm Password*">
+            <button mat-icon-button matSuffix (click)="hideRP = !hideRP" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hideRP">
+                <mat-icon>{{hideRP ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <div *ngIf="submit && formGroup.hasError('notmatched')">
+            Passwords do not match.
+        </div>
+
+        <mat-form-field>
+            <input matInput appLettersOnly
+                [ngClass]="formGroup.controls['firstName'].errors && formGroup.controls['firstName'].touched ? 'problem' : 'noProblem'"
+                type="text" formControlName="firstName" placeholder="First Name*">
+        </mat-form-field>
+
+        <ng-container *ngIf="formGroup.controls['firstName'].errors && formGroup.controls['firstName'].touched">
+            <ng-container *ngIf="formGroup.controls['firstName'].errors['required']">
+                <div>This field is required!</div>
+            </ng-container>
+            <ng-container *ngIf="formGroup.controls['firstName'].errors['minlength']">
+                <div>First name needs to be at least 2 characters long!</div>
+            </ng-container>
+        </ng-container>
+
+        <mat-form-field>
+            <input matInput appLettersOnly
+                [ngClass]="formGroup.controls['lastName'].errors && formGroup.controls['lastName'].touched ? 'problem' : 'noProblem'"
+                type="text" formControlName="lastName" placeholder="Last Name*">
+        </mat-form-field>
+
+        <ng-container *ngIf="formGroup.controls['lastName'].errors && formGroup.controls['lastName'].touched">
+            <ng-container *ngIf="formGroup.controls['lastName'].errors['required']">
+                <div>This field is required!</div>
+            </ng-container>
+            <ng-container *ngIf="formGroup.controls['lastName'].errors['minlength']">
+                <div>Last name needs to be at least 2 characters long!</div>
+            </ng-container>
+        </ng-container>
+
+        <mat-form-field>
+            <input matInput appNumbersOnly min="1" max="99" type="number" formControlName="age" placeholder="age">
+        </mat-form-field>
+
+        <ng-container *ngIf="formGroup.controls['age'].errors && formGroup.controls['age'].touched">
+            <ng-container *ngIf="formGroup.controls['age'].errors['required']">
+                <div>This field is required!</div>
+            </ng-container>
+            <ng-container *ngIf="formGroup.controls['age'].errors['min']">
+                <div>You need to be atleast 1 year old!</div>
+            </ng-container>
+            <ng-container *ngIf="formGroup.controls['age'].errors['max']">
+                <div>Max age is 99</div>
+            </ng-container>
+        </ng-container>
+
+        <mat-form-field>
+            <input matInput appLettersOnly type="text" formControlName="city" placeholder="city">
+        </mat-form-field>
+
+        <ng-container *ngIf="formGroup.controls['city'].errors && formGroup.controls['city'].touched">
+            <ng-container *ngIf="formGroup.controls['city'].errors['required']">
+                <div>This field is required!</div>
+            </ng-container>
+            <ng-container *ngIf="formGroup.controls['city'].errors['minlength']">
+                <div>City name must be atleast 2 characters long!</div>
+            </ng-container>
+        </ng-container>
+
+        <mat-form-field>
+            <input matInput appLettersOnly type="text" formControlName="country" placeholder="country">
+        </mat-form-field>
+
+        <ng-container *ngIf="formGroup.controls['country'].errors && formGroup.controls['country'].touched">
+            <ng-container *ngIf="formGroup.controls['country'].errors['required']">
+                <div>This field is required!</div>
+            </ng-container>
+            <ng-container *ngIf="formGroup.controls['country'].errors['minlength']">
+                <div>Couuntry name must be atleast 2 characters long!</div>
+            </ng-container>
+        </ng-container>
+
+        <mat-form-field>
+            <input matInput appNumbersOnly type="text" formControlName="phone" placeholder="phone">
+        </mat-form-field>
+
+        <ng-container *ngIf="formGroup.controls['phone'].errors && formGroup.controls['phone'].touched">
+            <ng-container *ngIf="formGroup.controls['phone'].errors['required']">
+                <div>This field is required!</div>
+            </ng-container>
+            <ng-container *ngIf="formGroup.controls['phone'].errors['minlength']">
+                <div>Number must be 10 characters long!</div>
+            </ng-container>
+            <ng-container *ngIf="formGroup.controls['phone'].errors['maxlength']">
+                <div>Number must be 10 characters long!</div>
+            </ng-container>
+        </ng-container>
+
+        <mat-form-field>
+            <input matInput type="text" formControlName="repository" placeholder="repository">
+        </mat-form-field>
+
+        <ng-container *ngIf="formGroup.controls['repository'].errors && formGroup.controls['repository'].touched">
+            <ng-container *ngIf="formGroup.controls['repository'].errors['required']">
+                <div>This field is required!</div>
+            </ng-container>
+            <ng-container *ngIf="formGroup.controls['repository'].errors['minlength']">
+                <div>Repository needs to be at least 2 chars long!</div>
+            </ng-container>
+            <ng-container *ngIf="formGroup.controls['repository'].errors['pattern']">
+                <div>Wrong link format!</div>
+            </ng-container>
+        </ng-container>
+
+        <ng-container formArrayName="languages" *ngFor="let language of languagesFormGroup.controls; let i = index;">
+            <div [formGroupName]="i" class="row">
+                <mat-form-field>
+                    <input matInput appLettersOnly class="form-control" formControlName="language" type="text"
+                        placeholder="language">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput appNumbersOnly class="form-control" formControlName="level" type="text"
+                        placeholder="level">
+                </mat-form-field>
+
+                <button mat-button type="button" (click)="removeLanguage(i)"> Remove </button>
+            </div>
+        </ng-container>
+
+        <button mat-button type="button" (click)="addLanguage()"> Add language </button>
+
+
+        <ng-select [multiple]="true" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedCourses"
+            placeholder="Select courses" class="full-width-select">
+            placeholder="Choose courses">
+            <ng-option *ngFor="let course of courses" [value]="course.id">Title:
+                {{course.title}}</ng-option>
+        </ng-select>
+
+        <ng-select formControlName="role" [(ngModel)]="selectedRole" placeholder="Choose role"
+            class="full-width-select">
+            <ng-option [value]="'admin'">Admin</ng-option>
+            <ng-option [value]="'user'">User</ng-option>
+        </ng-select>
+
+        <ngx-dropzone (change)="onSelect($event)" class="full-width-select">
+            <ngx-dropzone-label>Upload CV and Picture!</ngx-dropzone-label>
+
+            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+            </ngx-dropzone-preview>
+        </ngx-dropzone>
+
+        <div *ngIf="statusMessage">{{statusMessage}}</div>
+
+        <button mat-button type="submit">Submit</button>
+    </form>
+</div>

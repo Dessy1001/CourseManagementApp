@@ -1,0 +1,29 @@
+<div class="background-container">
+
+    <div class="background-image"></div>
+
+    <form [formGroup]="formGroup" class="custom-dialog">
+
+        <h1 mat-dialog-title>Create New Lecture</h1>
+
+        <mat-form-field>
+            <input matInput
+                [ngClass]="formGroup.controls['title'].errors && formGroup.controls['title'].touched ? 'problem' : 'noProblem'"
+                formControlName="title" placeholder="Title">
+            <mat-error>Title is required.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput [matDatepicker]="datePicker" formControlName="date" placeholder="Date">
+            <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+            <mat-datepicker #datePicker></mat-datepicker>
+            <mat-error>Date is required.</mat-error>
+        </mat-form-field>
+
+        <div *ngIf="statusMessage">
+            {{statusMessage}}
+        </div>
+
+        <button mat-button (click)="onSubmit()">Submit</button>
+    </form>
+</div>

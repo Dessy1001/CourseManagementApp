@@ -1,0 +1,53 @@
+<div class="dialog-overlay"></div>
+
+<div class="dialog-container">
+
+    <form [formGroup]="formGroup" class="mat-dialog-container">
+
+        <h1>Login</h1>
+
+        <button class="close-button" (click)="closeDialog()">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <mat-form-field>
+            <input matInput
+                [ngClass]="formGroup.controls['email'].errors && formGroup.controls['email'].touched ? 'problem' : 'noProblem'"
+                type="text" formControlName="email" placeholder="Email*">
+        </mat-form-field>
+
+        <ng-container *ngIf="formGroup.controls['email'].errors && formGroup.controls['email'].touched">
+            <ng-container *ngIf="formGroup.controls['email'].errors['required']">
+                <div>This field is required!</div>
+            </ng-container>
+            <ng-container *ngIf="formGroup.controls['email'].errors['pattern'] ">
+                <div>Wrong email address format!</div>
+            </ng-container>
+        </ng-container>
+
+        <mat-form-field>
+            <input matInput [type]="hide ? 'password' : 'text'"
+                [ngClass]="formGroup.controls['password'].errors && formGroup.controls['password'].touched ? 'problem' : 'noProblem'"
+                type="password" formControlName="password" placeholder="Password*">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <ng-container *ngIf="formGroup.controls['password'].errors && formGroup.controls['password'].touched">
+            <ng-container *ngIf="formGroup.controls['password'].errors['required']">
+                <div>This field is required!</div>
+            </ng-container>
+        </ng-container>
+
+        <div *ngIf="statusMessage">
+            {{statusMessage}}
+        </div>
+
+        <button mat-button (click)="onSubmit()">Submit</button>
+
+        <button mat-button (click)="onForgottenPasswordClick()">Forgotten password</button>
+
+    </form>
+</div>

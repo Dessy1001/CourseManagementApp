@@ -1,0 +1,57 @@
+<div class="background-container">
+
+    <div class="background-image"></div>
+
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="custom-dialog">
+
+        <h1>Update Module</h1>
+
+        <div class="form-field">
+            <mat-form-field class="custom-field">
+                <input matInput
+                    [class.problem]="formGroup.controls['title'].invalid && formGroup.controls['title'].touched"
+                    [class.noProblem]="!formGroup.controls['title'].invalid" formControlName="title"
+                    placeholder="Title">
+                <mat-error>Title is required.</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="form-field">
+            <mat-form-field class="custom-field">
+                <input matInput
+                    [class.problem]="formGroup.controls['description'].invalid && formGroup.controls['description'].touched"
+                    [class.noProblem]="!formGroup.controls['description'].invalid" formControlName="description"
+                    placeholder="Description">
+                <mat-error>Description is required.</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="form-field"
+            [class.problem]="formGroup.controls['startDate'].invalid && formGroup.controls['startDate'].touched"
+            [class.noProblem]="!formGroup.controls['startDate'].invalid">
+            <mat-form-field class="custom-field">
+                <input matInput [matDatepicker]="startDatePicker" formControlName="startDate" placeholder="Start Date">
+                <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #startDatePicker></mat-datepicker>
+                <mat-error>Start date is required.</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="form-field"
+            [class.problem]="formGroup.controls['endDate'].invalid && formGroup.controls['endDate'].touched"
+            [class.noProblem]="!formGroup.controls['endDate'].invalid">
+            <mat-form-field class="custom-field">
+                <input matInput [matDatepicker]="endDatePicker" formControlName="endDate" placeholder="End Date">
+                <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #endDatePicker></mat-datepicker>
+                <mat-error>End date is required.</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div *ngIf="statusMessage">
+            {{statusMessage}}
+        </div>
+
+        <button mat-button type="submit">Submit</button>
+    </form>
+</div>

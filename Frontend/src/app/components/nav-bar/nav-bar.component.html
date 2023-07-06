@@ -1,0 +1,17 @@
+<header class="header">
+
+    <h1 class="logo"><a href="#"><img src="https://i.ibb.co/0cGRtL2/Output-onlinepngtools-2.png" alt="Code Academy Logo"
+                width="95" height="70"></a></h1>
+    <ul class="main-nav">
+
+        <li class="nav-item"><a class="nav-link" routerLink="/">Home</a></li>
+        <li *ngIf="loggedInUser && userRole === 1" class="nav-item"><a class="nav-link" routerLink="users">Users</a></li>
+        <li *ngIf="loggedInUser" class="nav-item"><a class="nav-link" routerLink="courses">Courses</a></li>
+        <li *ngIf="!loggedInUser" class="nav-item"><a class="nav-link" (click)="openLogin()">Login</a></li>
+        <li *ngIf="loggedInUser" class="nav-item"><a class="nav-link" (click)="openChangePassword()">Change Password</a>
+        </li>
+        <li *ngIf="loggedInUser" class="nav-item"><a class="nav-link" (click)="logout()">Logout</a></li>
+
+    </ul>
+
+</header>

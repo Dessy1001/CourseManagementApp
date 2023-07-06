@@ -1,0 +1,83 @@
+<div class="background-container">
+
+    <div class="background-image"></div>
+
+    <h1>Lectures</h1>
+
+    <div *ngIf="loading" class="loading-container">
+        <!-- Display a loading message or spinner -->
+        <p>Loading...</p>
+    </div>
+
+    <div class="center-container">
+        <div class="table-container">
+
+            <div class="create-button-container" *ngIf="user.role === 1">
+                <button mat-button class="custom-button" routerLink="create-lecture">Create New Lecture</button>
+            </div>
+
+            <div *ngIf="!loading && user.role === 1" class="styled-table">
+                <table mat-table [dataSource]="lectures" class="mat-elevation-z8">
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="position">
+                        <th mat-header-cell *matHeaderCellDef> No. </th>
+                        <td mat-cell *matCellDef="let user; let i = index">{{ i + 1 }}</td>
+                    </ng-container>
+
+                    <!-- Title Column -->
+                    <ng-container matColumnDef="title">
+                        <th mat-header-cell *matHeaderCellDef> Title </th>
+                        <td mat-cell *matCellDef="let lecture"> {{ lecture.title }} </td>
+                    </ng-container>
+
+                    <!-- Date Column -->
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef> Date </th>
+                        <td mat-cell *matCellDef="let lecture"> {{ lecture.date | date: 'dd/MM/yyyy' }} </td>
+                    </ng-container>
+
+                    <!-- Assignment Column -->
+                    <ng-container matColumnDef="assignment">
+                        <th mat-header-cell *matHeaderCellDef> </th>
+                        <td mat-cell *matCellDef="let lecture">
+                            <button mat-icon-button class="custom-button-icon"
+                                (click)="getUserGradeAssignment(lecture)">
+                                <mat-icon>assignment</mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <!-- Update Column -->
+                    <ng-container matColumnDef="update">
+                        <th mat-header-cell *matHeaderCellDef> </th>
+                        <td mat-cell *matCellDef="let lecture">
+                            <button mat-icon-button class="custom-button-icon"
+                                (click)="updateCourseModuleLecture(lecture)">
+                                <mat-icon>create</mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <!-- Delete Column -->
+                    <ng-container matColumnDef="delete">
+                        <th mat-header-cell *matHeaderCellDef> </th>
+                        <td mat-cell *matCellDef="let lecture">
+                            <button mat-icon-button class="custom-button-icon"
+                                (click)="deleteCourseModuleLecture(lecture)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <!-- Table Header -->
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+                    <!-- Table Rows -->
+                    <tr mat-row *matRowDef="let lecture; columns: displayedColumns;"></tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "ES2015", // Set the JS version for emitted JS.
+    "module": "commonjs", // Specify what module code is generated.
+    "strict": true, // Enable all strict type checking options.
+    "outDir": "dist", // Specify an output folder for all emitted files.
+    "esModuleInterop": true 
+  },
+  "include": [
+    // Specifies a list of glob patterns that match files to be included in compilation.
+    "src/**/*"
+, "src/middleware", "src/controllers", "src/routes/auth.router.ts", "src/middleware/get-users.middleware.ts"  ]
+}
